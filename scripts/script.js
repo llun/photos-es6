@@ -92,3 +92,7 @@ function clear_canvas() {
 
   current_image = null
 }
+
+if (document.location.protocol === "file:") {
+  document.getElementById("save").setAttribute("disabled", true)
+}
