@@ -93,6 +93,10 @@ function clear_canvas() {
   current_image = null
 }
 
-if (document.location.protocol === "file:") {
-  document.getElementById("save").setAttribute("disabled", true)
+var save = document.getElementById("save")
+save.onclick = function() {
+}
+
+if (document.location.protocol === 'file:') {
+  save.setAttribute("disabled", true)
 }
