@@ -1,8 +1,29 @@
-var max_height = 500
 var max_width = 500
+var max_height = 500
 
-var canvas = document.getElementById("canvas")
-var ctx = canvas.getContext('2d')
+Caman.Filter.register("fitCrop", function() {
+  if (this.imageWidth() !== this.imageHeight()) {
+    var width = this.imageWidth()
+    var height = this.imageHeight()
+
+    if (this.imageWidth() < this.imageHeight()) {
+      var ratio = max_width / width
+
+      width = max_width
+      height = height * ratio
+    } else {
+      var ratio = max_height / height
+      height = max_height
+      width = width * ratio
+    }
+
+    this.resize({
+      width: width,
+      height: height
+    })
+    this.crop(max_width, max_height)
+  }
+})
 
 var current_image = null
 var image_dom = document.getElementById("image")
@@ -12,10 +33,16 @@ image_dom.onchange = function(imgEvt) {
 
   var reader = new FileReader()
   reader.onload = function(readerEvt) {
+    clear_canvas()
+
     var new_image = new Image()
     new_image.src = readerEvt.target.result
     current_image = new_image
-    draw_image(new_image)
+
+    Caman("#canvas", readerEvt.target.result, function() {
+      this.fitCrop()
+      this.render()
+    })
 
     image_dom.value = ""
 
@@ -42,25 +69,26 @@ for (var i = 0; i < buttons.length; i++) {
 
 var reset = document.getElementById("reset")
 reset.onclick = function() {
-  draw_image(current_image)
+  Caman("#canvas", function() {
+    this.reset()
+    this.fitCrop()
+    this.render()
+  })
 }
 
 var clear = document.getElementById("clear")
-clear.onclick = function() {
-  ctx.clearRect(0, 0, max_width, max_height)
+clear.onclick = clear_canvas
+
+function clear_canvas() {
+  var previous_canvas = document.getElementById("canvas")
+  var parent = previous_canvas.parentElement
+  parent.removeChild(previous_canvas)
+
+  var element = document.createElement("canvas")
+  element.id = "canvas"
+  element.setAttribute("width", previous_canvas.getAttribute("width"))
+  element.setAttribute("height", previous_canvas.getAttribute("height"))
+  parent.appendChild(element)
+
   current_image = null
-}
-
-function draw_image(image) {
-  var width = image.width > max_width ? max_width : image.width
-  var ratio = width < image.width ? width/image.width : 1
-
-  var height = image.height * ratio
-  if (height > max_height) {
-    height = max_height
-    width = max_height / height * width
-  }
-
-  ctx.clearRect(0, 0, max_width, max_height)
-  ctx.drawImage(image, 0, 0, width, height)
 }
