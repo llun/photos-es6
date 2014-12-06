@@ -95,6 +95,15 @@ function clear_canvas() {
 
 var save = document.getElementById("save")
 save.onclick = function() {
+  Caman("#canvas", function() {
+    var data_uri = this.toBase64() + ""
+    var strip_prefix = data_uri.substring("data:image/png;base64,".length)
+
+    var binary = StringView.base64ToBytes(strip_prefix)
+    var zip = zlib.deflate(binary)
+    var transferable_string = StringView.bytesToBase64(zip)
+
+  })
 }
 
 if (document.location.protocol === 'file:') {

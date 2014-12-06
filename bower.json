@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "caman": "~4.1.2",
-    "LZMA-JS": "~1.2.3"
+    "stringview": "*",
+    "zlib-asm": "~0.2.2"
   }
 }
