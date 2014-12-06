@@ -91,6 +91,9 @@ function clear_canvas() {
   parent.appendChild(element)
 
   current_image = null
+
+  var preview = document.getElementById("preview")
+  preview.style.display = "none"
 }
 
 var save = document.getElementById("save")
@@ -101,7 +104,22 @@ save.onclick = function() {
 
     var binary = StringView.base64ToBytes(strip_prefix)
     var zip = zlib.deflate(binary)
-    var transferable_string = StringView.bytesToBase64(zip)
+    var blob = new Blob([zip], { type: 'application/x-deflate' })
+
+    var request = new XMLHttpRequest()
+    request.responseType = "arraybuffer"
+    request.onload = function(requestEvt) {
+      if (!requestEvt.target.response) return
+
+      var response = requestEvt.target.response
+      var bytes = new Uint8Array(response)
+
+      var preview = document.getElementById("preview")
+      preview.style.display = "block"
+      preview.src = "data:image/png;base64," + StringView.bytesToBase64(bytes)
+    }
+    request.open('POST', '/upload', true)
+    request.send(blob)
 
   })
 }
