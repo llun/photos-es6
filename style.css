@@ -8,3 +8,14 @@
   width: 500px;
   height: 500px;
 }
+
+.filters {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.filters li {
+  display: inline;
+  margin-right: 10px;
+}

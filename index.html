@@ -8,6 +8,19 @@
   <body>
     <input type="file" id="image" accept="image/*"></input>
     <canvas id="canvas" width="500" height="500"></canvas>
+
+    <ul class="filters">
+      <li><button data-filter="vintage">Vintage</button></li>
+      <li><button id="reset">Reset</button></li>
+    </ul>
+
+    <div class="actions">
+      <button id="clear">Clear</button>
+      <button id="save">Save</button>
+    </div>
+
+    <script src="libs/caman/dist/caman.full.min.js"></script>
     <script src="script.js"></script>
+
   </body>
 </html>
