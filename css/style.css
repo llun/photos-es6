@@ -27,3 +27,7 @@ body {
   display: inline;
   margin-right: 10px;
 }
+
+.actions, .image-canvas {
+  margin-bottom: 10px;
+}

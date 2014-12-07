@@ -50,6 +50,7 @@ image_browser.onchange = function(imgEvt) {
     })
 
     image_browser.value = ""
+    clear_button.removeAttribute('disabled')
 
   }
   reader.readAsDataURL(file)
@@ -77,8 +78,8 @@ for (var i = 0; i < buttons.length; i++) {
   }
 }
 
-var reset = document.getElementById("reset")
-reset.onclick = function() {
+var reset_button = document.getElementById("reset")
+reset_button.onclick = function() {
   Caman("#canvas", function() {
     this.reset()
     this.fitCrop()
@@ -86,8 +87,14 @@ reset.onclick = function() {
   })
 }
 
-var clear = document.getElementById("clear")
-clear.onclick = clear_canvas
+var clear_button = document.getElementById("clear")
+clear_button.onclick = function() {
+  if (!confirm("This will remove image below, do you want to continue?")) {
+    return
+  }
+
+  clear_canvas()
+}
 
 function clear_canvas() {
   var previous_canvas = document.getElementById("canvas")
@@ -101,10 +108,11 @@ function clear_canvas() {
   parent.appendChild(element)
 
   current_image = null
+  clear_button.setAttribute('disabled', true)
 }
 
-var save = document.getElementById("save")
-save.onclick = function() {
+var save_button = document.getElementById("save")
+save_button.onclick = function() {
   Caman("#canvas", function() {
     var data_uri = this.toBase64() + ""
     var strip_prefix = data_uri.substring("data:image/png;base64,".length)
@@ -123,5 +131,6 @@ save.onclick = function() {
 }
 
 if (document.location.protocol === 'file:') {
-  save.setAttribute("disabled", true)
+  save_button.setAttribute("disabled", true)
 }
+clear_button.setAttribute('disabled', true)
