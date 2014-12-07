@@ -128,6 +128,7 @@ function clear_canvas() {
 
   current_image = null
   clear_button.setAttribute('disabled', true)
+  document.getElementById("result").style.display = "none"
   disable_all_filter_buttons()
 }
 
