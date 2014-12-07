@@ -22,6 +22,11 @@ Caman.Filter.register("fitCrop", function() {
       height: height
     })
     this.crop(max_width, max_height)
+  } else {
+    this.resize({
+      width: max_width,
+      height: max_height
+    })
   }
 })
 
