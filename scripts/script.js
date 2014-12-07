@@ -1,35 +1,3 @@
-var max_width = 500
-var max_height = 500
-
-Caman.Filter.register("fitCrop", function() {
-  if (this.imageWidth() !== this.imageHeight()) {
-    var width = this.imageWidth()
-    var height = this.imageHeight()
-
-    if (this.imageWidth() < this.imageHeight()) {
-      var ratio = max_width / width
-
-      width = max_width
-      height = height * ratio
-    } else {
-      var ratio = max_height / height
-      height = max_height
-      width = width * ratio
-    }
-
-    this.resize({
-      width: width,
-      height: height
-    })
-    this.crop(max_width, max_height)
-  } else {
-    this.resize({
-      width: max_width,
-      height: max_height
-    })
-  }
-})
-
 var current_image = null
 var image_browser = document.getElementById("image")
 image_browser.onchange = function(imgEvt) {
@@ -41,17 +9,16 @@ image_browser.onchange = function(imgEvt) {
     clear_canvas()
 
     var new_image = new Image()
+    new_image.onload = function() {
+      draw_image(new_image)
+
+      current_image = new_image
+      clear_button.removeAttribute('disabled')
+      enable_all_filter_buttons()
+    }
+
     new_image.src = readerEvt.target.result
-    current_image = new_image
-
-    Caman("#canvas", readerEvt.target.result, function() {
-      this.fitCrop()
-      this.render()
-    })
-
     image_browser.value = ""
-    clear_button.removeAttribute('disabled')
-    enable_all_filter_buttons()
 
   }
   reader.readAsDataURL(file)
@@ -133,29 +100,56 @@ function clear_canvas() {
   disable_all_filter_buttons()
 }
 
+function draw_image(image) {
+  var canvas = document.getElementById("canvas")
+
+  var max_width = canvas.getAttribute("width")
+  var max_height = canvas.getAttribute("height")
+
+  var width = image.width
+  var height = image.height
+
+  if (width !== height) {
+    if (width < height) {
+      var ratio = max_width / width
+      width = max_width
+      height = height * ratio
+    } else {
+      var ratio = max_height / height
+      height = max_height
+      width = width * ratio
+    }
+  } else {
+    width = max_width
+    height = max_height
+  }
+
+  var ctx = canvas.getContext("2d")
+  ctx.drawImage(image, 0, 0, width, height)
+}
+
 var save_button = document.getElementById("save")
 save_button.onclick = function() {
-  Caman("#canvas", function() {
-    var data_uri = this.toBase64() + ""
-    var strip_prefix = data_uri.substring("data:image/png;base64,".length)
+  var canvas = document.getElementById("canvas")
+  var data_uri = canvas.toDataURL()
 
-    var binary = StringView.base64ToBytes(strip_prefix)
-    var zip = zlib.deflate(binary)
-    var blob = new Blob([zip], { type: 'application/x-deflate' })
+  var strip_prefix = data_uri.substring("data:image/png;base64,".length)
 
-    var request = new XMLHttpRequest()
-    request.onload = function(requestEvt) {
-      document.getElementById("result").style.display = "block"
+  var binary = StringView.base64ToBytes(strip_prefix)
+  var zip = zlib.deflate(binary)
+  var blob = new Blob([zip], { type: 'application/x-deflate' })
 
-      var data = JSON.parse(requestEvt.target.response)
-      if (data.success) {
-        result_field.value = data.url
-      }
+  var request = new XMLHttpRequest()
+  request.onload = function(requestEvt) {
+    document.getElementById("result").style.display = "block"
+
+    var data = JSON.parse(requestEvt.target.response)
+    if (data.success) {
+      result_field.value = data.url
     }
-    request.open('POST', '/upload', true)
-    request.send(blob)
-
-  })
+  }
+  request.open('POST', '/upload', true)
+  request.send(blob)
 }
 
 var result_field = document.getElementById("result_field")
