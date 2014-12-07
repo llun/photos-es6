@@ -124,6 +124,7 @@ function clear_canvas() {
   element.id = "canvas"
   element.setAttribute("width", previous_canvas.getAttribute("width"))
   element.setAttribute("height", previous_canvas.getAttribute("height"))
+  element.setAttribute("data-caman-hidpi-disabled", true)
   parent.appendChild(element)
 
   current_image = null

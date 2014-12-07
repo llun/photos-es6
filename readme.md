@@ -1,4 +1,4 @@
-#JS Filter
+#Photos
 
 Experimental project for playing with `FileReader`.
 
