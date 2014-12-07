@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -18,8 +19,12 @@ func main() {
 	})
 	http.Handle("/", http.FileServer(http.Dir(".")))
 
-	log.Println("Listen on 3000")
-	err := http.ListenAndServe(":3000", nil)
+	port := os.Getenv("PORT")
+	if len(port) == 0 {
+		port = "3000"
+	}
+	log.Println("Listen on " + port)
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
