@@ -1,34 +1,66 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>File Reader Lab</title>
+    <title>FileReader Lab</title>
 
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <input type="file" id="image" accept="image/*"></input>
-    <div>
-      <canvas id="canvas" width="500" height="500"></canvas>
-    </div>
-    <img id="preview">
+    <nav class="navbar navbar-default navbar-fixed-top" role="naviagtion">
 
-    <ul class="filters">
-      <li><button data-filter="vintage">Vintage</button></li>
-      <li><button data-filter="lomo">Lomo</button></li>
-      <li><button data-filter="clarity">Clarity</button></li>
-      <li><button data-filter="sinCity">Sin City</button></li>
-      <li><button data-filter="sunrise">Sunrise</button></li>
-      <li><button data-filter="crossProcess">Cross Process</button></li>
-      <li><button data-filter="orangePeel">Orange Peel</button></li>
-      <li><button data-filter="love">Love</button></li>
-      <li><button data-filter="grungy">Grungy</button></li>
-      <li><button id="reset">Reset</button></li>
-    </ul>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">FileReader Lab</a>
+        </div>
+        <!-- /.navbar-header -->
+      </div>
+      <!-- /.container-fluid -->
 
-    <div class="actions">
-      <button id="clear">Clear</button>
-      <button id="save">Save</button>
+    </nav>
+
+    <div class="container">
+      <div class="row file-choose">
+        <div class="col-xs-12">
+          <input type="file" id="image" accept="image/*"></input>
+          <button id="image_button" class="btn btn-default btn-lg">Choose Image</button>
+
+          <button id="clear" class="btn btn-danger btn-lg">Clear</button>
+          <button id="save" class="btn btn-primary btn-lg">Save</button>
+        </div>
+      </div>
+      <!-- /.file-chooser -->
+
+      <div class="row image-canvas">
+        <div class="col-xs-12">
+          <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+      </div>
+      <!-- /.image-canvas -->
+
+      <div class="row filters">
+        <div class="col-xs-12">
+          <div class="btn-group .btn-group-justified">
+            <button class="btn btn-default" data-filter="vintage">Vintage</button>
+            <button class="btn btn-default" data-filter="lomo">Lomo</button>
+            <button class="btn btn-default" data-filter="clarity">Clarity</button>
+            <button class="btn btn-default" data-filter="sinCity">Sin City</button>
+
+            <button class="btn btn-default" data-filter="sunrise">Sunrise</button>
+            <button class="btn btn-default" data-filter="crossProcess">Cross Process</button>
+            <button class="btn btn-default" data-filter="orangePeel">Orange Peel</button>
+            <button class="btn btn-default" data-filter="love">Love</button>
+
+            <button class="btn btn-default" data-filter="grungy">Grungy</button>
+            <button class="btn btn-default" id="reset">Reset</button>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.filters -->
+
     </div>
+    <!-- /.container -->
 
     <script src="libs/caman/dist/caman.full.min.js"></script>
     <script src="libs/zlib-asm/zlib.js"></script>

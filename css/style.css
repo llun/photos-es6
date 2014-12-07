@@ -1,5 +1,10 @@
+body {
+  padding-top: 70px;
+}
+
 #image {
   margin-bottom: 10px;
+  display: none;
 }
 
 #canvas {
@@ -12,7 +17,7 @@
   display: none;
 }
 
-.filters {
+.filters ul {
   padding: 0;
   margin: 0;
   list-style: none;

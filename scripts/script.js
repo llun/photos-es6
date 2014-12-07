@@ -31,8 +31,8 @@ Caman.Filter.register("fitCrop", function() {
 })
 
 var current_image = null
-var image_dom = document.getElementById("image")
-image_dom.onchange = function(imgEvt) {
+var image_browser = document.getElementById("image")
+image_browser.onchange = function(imgEvt) {
 
   var file = imgEvt.target.files[0]
 
@@ -49,11 +49,16 @@ image_dom.onchange = function(imgEvt) {
       this.render()
     })
 
-    image_dom.value = ""
+    image_browser.value = ""
 
   }
   reader.readAsDataURL(file)
 
+}
+
+var browse_button = document.getElementById("image_button")
+browse_button.onclick = function() {
+  image_browser.click()
 }
 
 var buttons = document.querySelectorAll(".filters button")
@@ -96,9 +101,6 @@ function clear_canvas() {
   parent.appendChild(element)
 
   current_image = null
-
-  var preview = document.getElementById("preview")
-  preview.style.display = "none"
 }
 
 var save = document.getElementById("save")
@@ -112,16 +114,7 @@ save.onclick = function() {
     var blob = new Blob([zip], { type: 'application/x-deflate' })
 
     var request = new XMLHttpRequest()
-    request.responseType = "arraybuffer"
     request.onload = function(requestEvt) {
-      if (!requestEvt.target.response) return
-
-      var response = requestEvt.target.response
-      var bytes = new Uint8Array(response)
-
-      var preview = document.getElementById("preview")
-      preview.style.display = "block"
-      preview.src = "data:image/png;base64," + StringView.bytesToBase64(bytes)
     }
     request.open('POST', '/upload', true)
     request.send(blob)
