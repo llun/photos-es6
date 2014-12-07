@@ -143,6 +143,12 @@ save_button.onclick = function() {
 
     var request = new XMLHttpRequest()
     request.onload = function(requestEvt) {
+      document.getElementById("result").style.display = "block"
+
+      var data = JSON.parse(requestEvt.target.response)
+      if (data.success) {
+        result_field.value = data.url
+      }
     }
     request.open('POST', '/upload', true)
     request.send(blob)
@@ -150,8 +156,16 @@ save_button.onclick = function() {
   })
 }
 
+var result_field = document.getElementById("result_field")
+var open_button = document.getElementById("open_button")
+open_button.onclick = function() {
+  open(result_field.value, "_blank")
+}
+
 if (document.location.protocol === 'file:') {
   save_button.setAttribute("disabled", true)
 }
+
+document.getElementById("result").style.display = "none"
 clear_button.setAttribute('disabled', true)
 disable_all_filter_buttons()
