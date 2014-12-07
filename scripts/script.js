@@ -51,7 +51,7 @@ image_browser.onchange = function(imgEvt) {
 
     image_browser.value = ""
     clear_button.removeAttribute('disabled')
-    reset_button.removeAttribute('disabled')
+    enable_all_filter_buttons()
 
   }
   reader.readAsDataURL(file)
@@ -76,6 +76,20 @@ for (var i = 0; i < buttons.length; i++) {
       this[filter].apply(this).render()
     })
 
+  }
+}
+
+function disable_all_filter_buttons() {
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i]
+    button.setAttribute('disabled', true)
+  }
+}
+
+function enable_all_filter_buttons() {
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i]
+    button.removeAttribute('disabled')
   }
 }
 
@@ -114,6 +128,7 @@ function clear_canvas() {
 
   current_image = null
   clear_button.setAttribute('disabled', true)
+  disable_all_filter_buttons()
 }
 
 var save_button = document.getElementById("save")
@@ -139,4 +154,4 @@ if (document.location.protocol === 'file:') {
   save_button.setAttribute("disabled", true)
 }
 clear_button.setAttribute('disabled', true)
-reset_button.setAttribute('disabled', true)
+disable_all_filter_buttons()
