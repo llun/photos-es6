@@ -51,6 +51,7 @@ image_browser.onchange = function(imgEvt) {
 
     image_browser.value = ""
     clear_button.removeAttribute('disabled')
+    reset_button.removeAttribute('disabled')
 
   }
   reader.readAsDataURL(file)
@@ -80,6 +81,10 @@ for (var i = 0; i < buttons.length; i++) {
 
 var reset_button = document.getElementById("reset")
 reset_button.onclick = function() {
+  if (!confirm("This will remove all filters, do you want to continue?")) {
+    return
+  }
+
   Caman("#canvas", function() {
     this.reset()
     this.fitCrop()
@@ -134,3 +139,4 @@ if (document.location.protocol === 'file:') {
   save_button.setAttribute("disabled", true)
 }
 clear_button.setAttribute('disabled', true)
+reset_button.setAttribute('disabled', true)
