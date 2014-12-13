@@ -1,14 +1,14 @@
 <div class="row actions">
   <div class="col-xs-12">
-    <image-browser ng-model="file">Choose Image</image-browser>
+    <image-browser ng-model="file" ng-change="updateCanvas()">Choose Image</image-browser>
 
-    <button id="clear" class="btn btn-danger btn-lg">Clear</button>
-    <button id="save" class="btn btn-primary btn-lg">Save</button>
+    <button id="clear" class="btn btn-danger btn-lg" ng-disabled="isActionsDisabled">Clear</button>
+    <button id="save" class="btn btn-primary btn-lg" ng-disabled="isActionsDisabled">Save</button>
   </div>
 </div>
 <!-- /.actions -->
 
-<div id="result" class="row result">
+<div id="result" class="row result {{resultClasses}}">
   <div class="col-xs-12">
     <div class="input-group">
       <input type="text" id="result_field" class="form-control">
@@ -31,18 +31,14 @@
   <div class="col-xs-12">
     <div class="filters-wrapper">
       <div class="btn-group .btn-group-justified">
-        <button class="btn btn-default" data-filter="vintage">Vintage</button>
-        <button class="btn btn-default" data-filter="lomo">Lomo</button>
-        <button class="btn btn-default" data-filter="clarity">Clarity</button>
-        <button class="btn btn-default" data-filter="sinCity">Sin City</button>
-
-        <button class="btn btn-default" data-filter="sunrise">Sunrise</button>
-        <button class="btn btn-default" data-filter="crossProcess">Cross Process</button>
-        <button class="btn btn-default" data-filter="orangePeel">Orange Peel</button>
-        <button class="btn btn-default" data-filter="love">Love</button>
-
-        <button class="btn btn-default" data-filter="grungy">Grungy</button>
-        <button class="btn btn-danger" id="reset">Reset</button>
+        <button 
+          class="btn btn-default" 
+          ng-disabled="isFilterActionsDisabled"
+          ng-repeat="filter in filters" 
+          ng-click="applyFilter(filter)">
+          {{filter.label}}
+        </button>
+        <button class="btn btn-danger" ng-click="resetFilter()" ng-disabled="isFilterActionsDisabled">Reset</button>
       </div>
     </div>
     <!-- /.filters-wrapper -->
