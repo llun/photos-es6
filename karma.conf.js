@@ -14,7 +14,7 @@ module.exports = function(config) {
       'js/app.js',
       'js/controllers/*.js',
       'js/directives/*.js',
-      'specs/**/*.js'
+      'specs/unit/**/*.js'
     ],
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['progress'],
