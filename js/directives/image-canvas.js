@@ -70,11 +70,16 @@ app.directive('imageCanvas', [function() {
       })
 
       scope.applyFilter = function(filter) {
-        console.log (filter)
+        Caman("#canvas", function() {
+          this[filter.name].apply(this).render()
+        })
       }
 
       scope.resetFilter = function() {
-        console.log ('reset filter')
+        Caman("#canvas", function() {
+          this.reset()
+          this.render()
+        })
       }
     }
   }
