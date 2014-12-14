@@ -1,4 +1,4 @@
-app.directive('imageBrowser', ['$timeout', function($timeout) {
+app.directive('imageBrowser', [function() {
   return {
     restrict: 'E',
     templateUrl: 'partials/image-browser.html',
