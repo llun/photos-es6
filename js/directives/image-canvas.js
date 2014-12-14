@@ -3,7 +3,9 @@ app.directive('imageCanvas', [function() {
     restrict: 'E',
     templateUrl: 'partials/image-canvas.html',
     scope: {
-      image: '=image'
+      image: '=image',
+      applyFilter: '=applyFilter',
+      resetFilter: '=resetFilter'
     },
     link: function(scope, element, attrs) {
       var clearCanvas = function() {
@@ -66,6 +68,14 @@ app.directive('imageCanvas', [function() {
           loadImage(newValue)
         }
       })
+
+      scope.applyFilter = function(filter) {
+        console.log (filter)
+      }
+
+      scope.resetFilter = function() {
+        console.log ('reset filter')
+      }
     }
   }
 }])

@@ -27,11 +27,4 @@ app.controller('CaptureCtrl', ['$scope',
       $scope.isActionsDisabled = true
     }
 
-    $scope.applyFilter = function(filter) {
-      console.log(filter)
-    }
-
-    $scope.resetFilter = function() {
-
-    }
   }])
