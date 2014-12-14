@@ -15,4 +15,22 @@ describe('Capture Photo', function() {
     expect(element(by.id('result')).isDisplayed()).toBeFalsy()
   })
 
+  it ('enables filters and action buttons when choose file', function() {
+
+    browser.get('http://localhost:3000')
+
+    element(by.css('input[type="file"]')).sendKeys(__dirname + '/sample.jpg')
+
+    expect(element(by.id('clear_btn')).isEnabled()).toBeTruthy()
+    expect(element(by.id('save_btn')).isEnabled()).toBeTruthy()
+    expect(element(by.id('reset_btn')).isEnabled()).toBeTruthy()   
+
+    var anyEnabledFilterButtons = element.all(by.repeater('filter in filters')).reduce(function(acc, element) {
+      return acc || element.isEnabled()
+    })
+    expect(anyEnabledFilterButtons).toBeTruthy()
+    expect(element(by.id('result')).isDisplayed()).toBeFalsy()
+
+  })
+
 })
