@@ -7,7 +7,11 @@
       class="btn btn-danger btn-lg" 
       ng-click="clearCanvas()"
       ng-disabled="isActionsDisabled">Clear</button>
-    <button id="save_btn" class="btn btn-primary btn-lg" ng-disabled="isActionsDisabled">Save</button>
+    <button 
+      id="save_btn" 
+      class="btn btn-primary btn-lg" 
+      ng-click="saveCanvas()"
+      ng-disabled="isActionsDisabled">Save</button>
   </div>
 </div>
 <!-- /.actions -->
@@ -15,9 +19,9 @@
 <div id="result" class="row result {{resultClasses}}">
   <div class="col-xs-12">
     <div class="input-group">
-      <input type="text" id="result_field" class="form-control">
+      <input type="text" id="result_field" class="form-control" ng-model="resultUrl">
       <div class="input-group-btn">
-        <button id="open_button" class="btn btn-default">Open</button>
+        <button class="btn btn-default" ng-click="openResult()">Open</button>
       </div>
     </div>
   </div>
@@ -26,7 +30,12 @@
 
 <div class="row image-canvas">
   <div class="col-xs-12">
-    <image-canvas image="file" apply-filter="applyFilter" reset-filter="resetFilter"></image-canvas>
+    <image-canvas 
+      image="file" 
+      result="result"
+      save="saveCanvas"
+      apply-filter="applyFilter" 
+      reset-filter="resetFilter"></image-canvas>
   </div>
 </div>
 <!-- /.image-canvas -->

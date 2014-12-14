@@ -4,6 +4,8 @@ app.directive('imageCanvas', [function() {
     templateUrl: 'partials/image-canvas.html',
     scope: {
       image: '=image',
+      result: '=result',
+      save: '=save',
       applyFilter: '=applyFilter',
       resetFilter: '=resetFilter'
     },
@@ -80,6 +82,11 @@ app.directive('imageCanvas', [function() {
           this.reset()
           this.render()
         })
+      }
+
+      scope.save = function() {
+        var canvas = document.getElementById("canvas")
+        scope.result = canvas.toDataURL()
       }
     }
   }

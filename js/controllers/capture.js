@@ -1,5 +1,5 @@
-app.controller('CaptureCtrl', ['$scope',
-  function($scope) {
+app.controller('CaptureCtrl', ['$scope', '$http',
+  function($scope, $http) {
     $scope.resultClasses = "hidden"
     $scope.isFilterActionsDisabled = true
     $scope.isActionsDisabled = true
@@ -25,6 +25,32 @@ app.controller('CaptureCtrl', ['$scope',
       $scope.file = null
       $scope.isFilterActionsDisabled = true
       $scope.isActionsDisabled = true
+
+      $scope.resultUrl = ""
+      $scope.resultClasses = "hidden"
     }
+
+    $scope.openResult = function() {
+      open(result_field.value, "_blank")
+    }
+
+    $scope.$watch('result', function(data) {
+      if (data) {
+        var stripPrefix = data.substring("data:image/png;base64,".length)
+
+        var binary = StringView.base64ToBytes(stripPrefix)
+        var zip = zlib.deflate(binary)
+        var blob = new Blob([zip], { type: 'application/x-deflate' })
+
+        $http.post('/upload', blob)
+          .success(function(data, status, headers, config) {
+            if (data.success) {
+              $scope.resultUrl = data.url
+              $scope.resultClasses = ""
+            }
+          })
+
+      }
+    })
 
   }])
