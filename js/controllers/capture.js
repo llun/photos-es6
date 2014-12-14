@@ -17,7 +17,14 @@ app.controller('CaptureCtrl', ['$scope',
     ]
 
     $scope.updateCanvas = function() {
-      console.log ("Updating canvas")
+      $scope.isActionsDisabled = false
+      $scope.isFilterActionsDisabled = false
+    }
+
+    $scope.clearCanvas = function() {
+      $scope.file = null
+      $scope.isFilterActionsDisabled = true
+      $scope.isActionsDisabled = true
     }
 
     $scope.applyFilter = function(filter) {

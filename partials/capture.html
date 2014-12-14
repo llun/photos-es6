@@ -2,7 +2,11 @@
   <div class="col-xs-12">
     <image-browser ng-model="file" ng-change="updateCanvas()">Choose Image</image-browser>
 
-    <button id="clear_btn" class="btn btn-danger btn-lg" ng-disabled="isActionsDisabled">Clear</button>
+    <button 
+      id="clear_btn" 
+      class="btn btn-danger btn-lg" 
+      ng-click="clearCanvas()"
+      ng-disabled="isActionsDisabled">Clear</button>
     <button id="save_btn" class="btn btn-primary btn-lg" ng-disabled="isActionsDisabled">Save</button>
   </div>
 </div>
