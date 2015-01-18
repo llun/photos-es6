@@ -1,17 +1,23 @@
 System.config({
   "paths": {
     "*": "*.js",
-    "Photos/*": "js/lib/*.js",
+    "app/*": "js/app/*.js",
     "github:*": "js/packages/github/*.js",
-    "npm:*": "js/packages/npm/*.js"
+    "npm:*": "js/packages/npm/*.js",
+    "Photos/*": "js/app/*.js"
   }
 });
 
 System.config({
   "map": {
+    "CamanJS": "github:meltingice/CamanJS@4.1.2",
     "angular": "github:angular/bower-angular@1.3.9",
+    "angular-route": "github:angular/bower-angular-route@1.3.9",
     "caman": "npm:caman@4.1.2",
     "lodash": "npm:lodash@2.4.1",
+    "github:angular/bower-angular-route@1.3.9": {
+      "angular": "github:angular/bower-angular@1.3.9"
+    },
     "github:jspm/nodelibs-buffer@0.1.0": {
       "buffer": "npm:buffer@3.0.1"
     },

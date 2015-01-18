@@ -1,17 +1,37 @@
 <!doctype html>
-<html>
+<html ng-app="photos">
   <head>
     <title>Photos</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
 
     <script src="/js/packages/system.js"></script>
     <script src="/js/config.js"></script>
     <script>
-      System.baseURL = '/js'
-      System.import('lib/main').then(function(m) {
-        m.Photo()
-      })
+      System.baseURL = '/'
+      System.import('app/main')
     </script>
   </head>
   <body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="naviagtion">
+
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Photos</a>
+        </div>
+        <!-- /.navbar-header -->
+      </div>
+      <!-- /.container-fluid -->
+
+    </nav>
+
+    <div class="container" ng-view>
+    </div>
+    <!-- /.container -->
   </body>
 </html>

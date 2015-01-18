@@ -2,13 +2,14 @@
   "jspm": {
     "name": "Photos",
     "directories": {
-      "lib": "js/lib",
+      "lib": "js/app",
       "packages": "js/packages"
     },
     "configFile": "js/config.js",
     "dependencies": {
+      "CamanJS": "github:meltingice/CamanJS@^4.1.2",
       "angular": "^1.3.9",
-      "caman": "npm:caman@^4.1.2",
+      "angular-route": "^1.3.9",
       "lodash": "^2.4.1"
     }
   }
